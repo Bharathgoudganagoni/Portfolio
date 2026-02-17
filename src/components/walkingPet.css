@@ -1,0 +1,62 @@
+.pet-wrapper {
+  position: fixed;
+  bottom: -19px;
+  left: -160px; /* start outside screen */
+  cursor: pointer;
+  z-index: 9999;
+
+  animation: moveAcross 35s linear infinite;
+}
+
+/* Pause animation when hovered */
+.pet-wrapper.paused {
+  animation-play-state: paused;
+}
+
+/* Bigger size */
+.pet-gif {
+  width: 150px;
+}
+
+/* 🔥 Smooth Full-Screen Movement */
+@keyframes moveAcross {
+  0% {
+    left: -160px; /* fully outside left */
+  }
+
+  100% {
+    left: 100vw; /* fully outside right */
+  }
+}
+
+/* Tooltip above pet */
+.tooltip {
+  position: absolute;
+  bottom: 170px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+
+  background: linear-gradient(45deg, #00d1b2, #009e86);
+  color: black;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  box-shadow: 0 6px 15px rgba(0, 209, 178, 0.4);
+}
+
+.pet-wrapper:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0px);
+}
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+  .pet-wrapper {
+    display: none;
+  }
+}
