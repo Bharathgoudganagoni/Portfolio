@@ -57,11 +57,8 @@ export default function Hero() {
 
       <div className="hero-right">
         <div className="profile-container">
-          <img
-            src="/Bharath_profile.png"
-            alt="Ganagoni Bharath Goud"
-            className="profile-img"
-          />
+          <img src="/Portfolio/Bharath_profile.png" alt="Profile" />
+
         </div>
       </div>
     </header>
