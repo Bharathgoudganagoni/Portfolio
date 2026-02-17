@@ -27,7 +27,7 @@ Demo & prototype built with webcam input, real-time landmark detection, and cust
     link: "#"
   },
   {
-    title: "Calculator Web App",
+    title: "Calculator ",
     desc: "Vanilla JS calculator with voice input, theme toggle and animated background.",
     tech: "JavaScript · Web API",
     link: "https://Bharathgoudganagoni.github.io/calculator-project/"
