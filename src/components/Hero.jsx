@@ -57,7 +57,8 @@ export default function Hero() {
 
       <div className="hero-right">
         <div className="profile-container">
-          <img src="/Portfolio/Bharath_profile.png" alt="Profile" />
+          <img src={`${import.meta.env.BASE_URL}Bharath_profile.png`} />
+
 
         </div>
       </div>
