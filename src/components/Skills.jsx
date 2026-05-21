@@ -6,46 +6,72 @@ import {
   FaCss3Alt,
   FaGitAlt,
   FaFigma,
-  FaPython
+  FaPython,
+  FaAngular
 } from "react-icons/fa";
 import {
   SiJavascript,
   SiMongodb,
   SiExpress,
   SiAdobephotoshop,
-  SiCanva
+  SiCanva,
+  SiTypescript,
+  SiCypress
 } from "react-icons/si";
 
 export default function Skills() {
-  const skills = [
-    { icon: <SiJavascript />, name: "JavaScript" },
-    { icon: <FaReact />, name: "React" },
-    { icon: <FaNodeJs />, name: "Node.js" },
-    { icon: <SiExpress />, name: "Express" },
-    { icon: <SiMongodb />, name: "MongoDB" },
-    { icon: <FaPython />, name: "Python" },
-    { icon: <FaHtml5 />, name: "HTML" },
-    { icon: <FaCss3Alt />, name: "CSS" },
-    { icon: <FaFigma />, name: "Figma" },
-    { icon: <FaGitAlt />, name: "Git" },
-    { icon: <SiCanva />, name: "Canva" },
-    { icon: <SiAdobephotoshop />, name: "Photoshop" }
+  const skillCategories = [
+    {
+      title: "Frontend Development",
+      skills: [
+        { icon: <SiJavascript />, name: "JavaScript", level: "Expert" },
+        { icon: <FaReact />, name: "React", level: "Expert" },
+        { icon: <FaAngular />, name: "Angular", level: "Advanced" },
+        { icon: <SiTypescript />, name: "TypeScript", level: "Advanced" },
+        { icon: <FaHtml5 />, name: "HTML5", level: "Expert" },
+        { icon: <FaCss3Alt />, name: "CSS3", level: "Expert" }
+      ]
+    },
+    {
+      title: "Backend & Database",
+      skills: [
+        { icon: <FaNodeJs />, name: "Node.js", level: "Advanced" },
+        { icon: <SiExpress />, name: "Express", level: "Advanced" },
+        { icon: <SiMongodb />, name: "MongoDB", level: "Advanced" },
+        { icon: <FaPython />, name: "Python", level: "Intermediate" }
+      ]
+    },
+    {
+      title: "Design, Tools & Testing",
+      skills: [
+        { icon: <FaFigma />, name: "Figma", level: "Expert" },
+        { icon: <FaGitAlt />, name: "Git & GitHub", level: "Advanced" },
+        { icon: <SiCanva />, name: "Canva", level: "Expert" },
+        { icon: <SiAdobephotoshop />, name: "Photoshop", level: "Intermediate" },
+        { icon: <SiCypress />, name: "Testing Automation", level: "Basic" }
+      ]
+    }
   ];
 
   return (
     <section className="section skills-section" aria-labelledby="skills-heading">
-      <h2 id="skills-heading">Skills</h2>
-
-      <div className="orbit-container">
-        {skills.map((skill, index) => (
-          <div
-            key={skill.name}
-            className="orbit-item"
-            style={{ "--i": index }}
-          >
-            <div className="icon-wrapper">
-              {skill.icon}
-              <span className="tooltip">{skill.name}</span>
+      <h2 id="skills-heading" className="section-title">Professional Skills</h2>
+      <p className="skills-subtitle">Curated expertise across modern web technologies, design tools, and testing.</p>
+      
+      <div className="skills-grid">
+        {skillCategories.map((category, index) => (
+          <div key={index} className="skills-category-card">
+            <h3 className="category-title">{category.title}</h3>
+            <div className="skills-list">
+              {category.skills.map((skill, sIdx) => (
+                <div key={sIdx} className="skill-badge-item">
+                  <div className="skill-icon">{skill.icon}</div>
+                  <div className="skill-info">
+                    <span className="skill-name">{skill.name}</span>
+                    <span className="skill-level">{skill.level}</span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ))}
