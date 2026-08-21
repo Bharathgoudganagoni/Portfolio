@@ -1,30 +1,77 @@
-import React from 'react';
+import React, { useEffect, useRef } from "react";
 
-export default function About(){
+const storyLines = [
+  { type: "label", text: "01 / WHO I AM" },
+  { type: "headline", text: "A passionate engineer with a dual focus on code and human-centered design." },
+  { type: "body", text: "I am Ganagoni Bharath Goud, a Computer Science student and Full Stack Developer. My approach combines technical rigor with aesthetic precision — turning complex software challenges into elegant, high-performance web solutions." },
+
+  { type: "label", text: "02 / TECHNICAL FOUNDATION" },
+  { type: "headline", text: "Mastering the end-to-end web technology ecosystem." },
+  { type: "body", text: "I build modern applications using React, Angular, TypeScript, Node.js, Express, and MongoDB. From crafting modular frontend architectures to engineering robust backend APIs — I cover the full application lifecycle with precision." },
+
+  { type: "label", text: "03 / INDUSTRY EXPERIENCE" },
+  { type: "headline", text: "Delivering production systems and enterprise-grade solutions." },
+  { type: "body", text: "At Keezenix Global LLP, I engineered the official corporate website (www.keezenix.com) from wireframes to live deployment. At Edunet Foundation's NxtGen 3.0, I built a full MERN Spotify Clone with JWT authentication and real-time streaming." },
+
+  { type: "label", text: "04 / DESIGN & CREATIVITY" },
+  { type: "headline", text: "Designing interfaces that captivate and convert." },
+  { type: "body", text: "Beyond code, I dive into UX research, wireframing, and digital branding in Figma and Canva. I believe every software product should be visually compelling, responsive across all devices, and deeply intuitive." },
+
+  { type: "label", text: "05 / VISION & GOALS" },
+  { type: "headline", text: "Driven by continuous learning and breakthrough innovation." },
+  { type: "body", text: "With exposure to Python computer vision systems, automation testing (Cypress), and full SDLC workflows, I thrive on new technological frontiers. My goal is to engineer impactful, scalable systems within forward-thinking teams." },
+];
+
+export default function About() {
+  const itemRefs = useRef([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("line-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -60px 0px" }
+    );
+
+    itemRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="section" aria-labelledby="about-heading">
-      <h2 id="about-heading">About Me</h2>
-      <p className="about-summary">
-        <span className="intro-highlight">I am Bharath Goud</span>, a passionate and dedicated{' '}
-        <span className="tech-highlight">Computer Science student</span> with strong skills in{' '}
-        <span className="tech-highlight">full-stack development</span> and{' '}
-        <span className="tech-highlight">UI/UX design</span>. I have hands-on experience building
-        web applications using modern technologies like{' '}
-        <span className="tech-highlight">React</span>,{' '}
-        <span className="tech-highlight">Angular</span>,{' '}
-        <span className="tech-highlight">TypeScript</span>,{' '}
-        <span className="tech-highlight">Node.js</span>,{' '}
-        <span className="tech-highlight">Express</span>, and{' '}
-        <span className="tech-highlight">MongoDB</span>. I enjoy creating clean, user-friendly
-        interfaces and designing intuitive user experiences in{' '}
-        <span className="tech-highlight">Figma</span>. I also have basics in{' '}
-        <span className="tech-highlight">testing automation</span>, with exposure to tools like
-        Cypress. I thrive in{' '}
-        <span className="tech-highlight">problem-solving</span>, learning new technologies, and
-        delivering high-quality projects that combine functionality and aesthetics. My goal is to
-        contribute to innovative projects that make a real impact while continuously growing as a
-        developer.
-      </p>
+    <section className="about-container" id="about" aria-labelledby="about-heading">
+      <div className="section-header">
+        <span className="section-subtitle">BACKGROUND &amp; IDENTITY</span>
+        <h2 id="about-heading" className="section-title">About Me</h2>
+      </div>
+
+      <div className="about-lines-container">
+        {storyLines.map((line, index) => (
+          <div
+            key={index}
+            ref={(el) => (itemRefs.current[index] = el)}
+            className={`about-line about-line--${line.type}`}
+            style={{ transitionDelay: `${(index % 3) * 0.06}s` }}
+          >
+            {line.type === "label" && (
+              <span className="about-label-text">{line.text}</span>
+            )}
+            {line.type === "headline" && (
+              <h3 className="about-headline-text">{line.text}</h3>
+            )}
+            {line.type === "body" && (
+              <p className="about-body-text">{line.text}</p>
+            )}
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

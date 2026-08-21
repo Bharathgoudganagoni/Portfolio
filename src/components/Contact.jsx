@@ -1,28 +1,22 @@
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { FaEnvelope, FaLinkedin, FaInstagram, FaWhatsapp, FaPaperPlane } from "react-icons/fa";
+import { SiThreads } from "react-icons/si";
 
 export default function Contact() {
   const formRef = useRef();
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [status, setStatus] = useState("idle");
+  const [focusedField, setFocusedField] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-
     setStatus("sending");
-
     emailjs
-      .sendForm(
-        "service_portfolio",   // You'll set this up in EmailJS dashboard
-        "template_portfolio",  // You'll set this up in EmailJS dashboard
-        formRef.current,
-        "YOUR_PUBLIC_KEY"      // Replace with your EmailJS public key
-      )
+      .sendForm("service_portfolio", "template_portfolio", formRef.current, "YOUR_PUBLIC_KEY")
       .then(() => {
         setStatus("success");
         setFormData({ name: "", email: "", message: "" });
@@ -34,120 +28,129 @@ export default function Contact() {
       });
   };
 
+  const socials = [
+    { icon: <FaEnvelope />, label: "Email", url: "mailto:bharathgoudganagoni123@gmail.com", color: "#00f5d4" },
+    { icon: <FaLinkedin />, label: "LinkedIn", url: "https://www.linkedin.com/in/ganagoni-bharath-goud", color: "#0a66c2" },
+    { icon: <FaInstagram />, label: "Instagram", url: "https://www.instagram.com/bharathgoudganagoni/", color: "#e1306c" },
+    { icon: <SiThreads />, label: "Threads", url: "https://www.threads.com/@ganagoni_bharath_goud", color: "#ffffff" },
+    { icon: <FaWhatsapp />, label: "WhatsApp", url: "https://wa.me/919666809898?text=Hi%20Bharath!%20I%20saw%20your%20portfolio%20and%20want%20to%20connect%20%F0%9F%9A%80", color: "#25d366" },
+  ];
+
   return (
-    <section
-      className="section contact-section"
-      id="contact"
-      aria-labelledby="contact-heading"
-    >
-      <div className="contact-container">
-        <h2 id="contact-heading" className="contact-title">
-          Let's Connect
-        </h2>
+    <section className="contact-section" id="contact" aria-labelledby="contact-heading">
+      {/* Decorative ambient blobs */}
+      <div className="contact-blob contact-blob-1" />
+      <div className="contact-blob contact-blob-2" />
 
-        <p className="contact-description">
-          I'm currently seeking full-time opportunities or freelance collaborations.
-          Send me a message directly below, or reach out through my social channels!
-        </p>
+      <div className="contact-inner">
+        {/* Left: Big typography + social icons */}
+        <div className="contact-left-panel">
+          <span className="section-subtitle">GET IN TOUCH</span>
+          <h2 id="contact-heading" className="contact-big-title">
+            Let's Build<br />
+            <span className="contact-title-accent">Something Great</span>
+          </h2>
+          <p className="contact-tagline">
+            Open for full-time roles, freelance collaborations,<br className="hide-mobile" /> and exciting engineering projects.
+          </p>
 
-        <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
-          <div className="form-group-row">
-            <div className="form-group">
-              <label htmlFor="name">Your Name</label>
+          {/* Social Icons Horizontal Strip */}
+          <div className="contact-social-strip">
+            {socials.map((s, idx) => (
+              <a
+                key={idx}
+                href={s.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={s.label}
+                className="contact-social-btn"
+                title={s.label}
+                style={{ "--social-color": s.color }}
+              >
+                {s.icon}
+                <span className="social-tooltip">{s.label}</span>
+              </a>
+            ))}
+          </div>
+
+          {/* Direct email */}
+          <a href="mailto:bharathgoudganagoni123@gmail.com" className="contact-direct-email">
+            <FaEnvelope />
+            <span>bharathgoudganagoni123@gmail.com</span>
+          </a>
+        </div>
+
+        {/* Right: Minimalist Form */}
+        <div className="contact-right-panel">
+          <form ref={formRef} onSubmit={handleSubmit} className="contact-form-minimal" noValidate>
+            <div className="form-float-group">
               <input
                 type="text"
-                id="name"
+                id="c-name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="John Doe"
+                onFocus={() => setFocusedField("name")}
+                onBlur={() => setFocusedField(null)}
+                placeholder=" "
                 required
                 disabled={status === "sending"}
+                className="form-float-input"
               />
+              <label htmlFor="c-name" className="form-float-label">Your Name</label>
+              <span className={`form-float-line ${focusedField === "name" ? "active" : ""}`} />
             </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Your Email</label>
+            <div className="form-float-group">
               <input
                 type="email"
-                id="email"
+                id="c-email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="john@example.com"
+                onFocus={() => setFocusedField("email")}
+                onBlur={() => setFocusedField(null)}
+                placeholder=" "
                 required
                 disabled={status === "sending"}
+                className="form-float-input"
               />
+              <label htmlFor="c-email" className="form-float-label">Email Address</label>
+              <span className={`form-float-line ${focusedField === "email" ? "active" : ""}`} />
             </div>
-          </div>
 
-          <div className="form-group">
-            <label htmlFor="message">Your Message</label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Hi Bharath, let's build something amazing..."
-              rows="5"
-              required
+            <div className="form-float-group">
+              <textarea
+                id="c-message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                onFocus={() => setFocusedField("message")}
+                onBlur={() => setFocusedField(null)}
+                placeholder=" "
+                rows="4"
+                required
+                disabled={status === "sending"}
+                className="form-float-input form-float-textarea"
+              />
+              <label htmlFor="c-message" className="form-float-label">Your Message</label>
+              <span className={`form-float-line ${focusedField === "message" ? "active" : ""}`} />
+            </div>
+
+            <button
+              type="submit"
+              className={`contact-send-btn ${status !== "idle" ? status : ""}`}
               disabled={status === "sending"}
-            ></textarea>
-          </div>
-
-          <button
-            type="submit"
-            className={`form-submit-btn ${status === "sending" ? "btn-sending" : ""} ${status === "success" ? "btn-success" : ""} ${status === "error" ? "btn-error" : ""}`}
-            disabled={status === "sending"}
-          >
-            {status === "idle" && "🚀 Send Message"}
-            {status === "sending" && "📡 Sending..."}
-            {status === "success" && "✅ Message Sent!"}
-            {status === "error" && "❌ Failed — Try Again"}
-          </button>
-
-          {status === "success" && (
-            <div className="success-toast">
-              <span>🎉 Your message has been delivered to Bharath's inbox!</span>
-            </div>
-          )}
-
-          {status === "error" && (
-            <div className="error-toast">
-              <span>⚠️ Something went wrong. Please try the direct email link below.</span>
-            </div>
-          )}
-        </form>
-
-        <div className="contact-divider">
-          <span>OR REACH OUT DIRECTLY</span>
-        </div>
-
-        <div className="contact-buttons">
-          <a
-            href="mailto:bharathgoudganagoni123@gmail.com"
-            className="contact-button email-btn"
-          >
-            📧 Email Me
-          </a>
-
-          <a
-            href="https://wa.me/919666809898"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-button whatsapp-btn"
-          >
-            💬 WhatsApp
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/ganagoni-bharath-goud"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-button linkedin-btn"
-          >
-            🔗 LinkedIn
-          </a>
+            >
+              <span className="send-btn-text">
+                {status === "idle" && <><FaPaperPlane /> Send Message</>}
+                {status === "sending" && "Sending..."}
+                {status === "success" && "✓ Message Sent!"}
+                {status === "error" && "✗ Failed — Try Email Directly"}
+              </span>
+              <span className="send-btn-shimmer" />
+            </button>
+          </form>
         </div>
       </div>
     </section>
