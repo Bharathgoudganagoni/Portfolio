@@ -1,3 +1,4 @@
+// Production AI Assistant Component - Gemini 3.6 Flash Generative Engine
 import React, { useState, useEffect, useRef } from "react";
 import { FaRobot, FaTimes, FaPaperPlane, FaChevronRight, FaFileAlt, FaDownload, FaRedo } from "react-icons/fa";
 import "./aiAssistant.css";
