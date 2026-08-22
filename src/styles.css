@@ -2192,11 +2192,11 @@ body::after {
   display: block;
 }
 
-/* Hero profile: premium circular/organic frame */
+/* Hero profile: premium circular frame */
 .hero-profile-frame {
   position: relative;
-  width: 380px;
-  height: 380px;
+  width: 320px;
+  height: 320px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -2205,11 +2205,11 @@ body::after {
 
 .hero-profile-glow {
   position: absolute;
-  inset: -50px;
+  inset: -40px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 245, 212, 0.3) 0%, rgba(112,0,255,0.15) 50%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 245, 212, 0.22) 0%, rgba(0, 217, 245, 0.1) 45%, transparent 70%);
   z-index: 0;
-  filter: blur(18px);
+  filter: blur(20px);
 }
 
 /* Cosmic Cyber Rings rotating at different speeds and angles */
@@ -2222,32 +2222,32 @@ body::after {
 }
 
 .hero-profile-ring.ring-1 {
-  inset: -14px;
+  inset: -10px;
   border: 2px solid transparent;
-  border-top-color: rgba(0, 245, 212, 0.9);
-  border-bottom-color: rgba(0, 245, 212, 0.5);
-  box-shadow: 0 0 12px rgba(0, 245, 212, 0.4);
+  border-top-color: #00f5d4;
+  border-left-color: rgba(0, 245, 212, 0.4);
+  box-shadow: 0 0 14px rgba(0, 245, 212, 0.5);
   animation: spinRing1 4s linear infinite;
 }
 
 .hero-profile-ring.ring-2 {
-  inset: -28px;
-  border: 2px solid transparent;
-  border-left-color: rgba(112, 0, 255, 0.85);
-  border-right-color: rgba(0, 245, 212, 0.4);
-  box-shadow: 0 0 16px rgba(112, 0, 255, 0.3);
-  transform: rotateX(50deg) rotateY(20deg);
-  animation: spinRing2 6s linear infinite;
+  inset: -22px;
+  border: 1.5px solid transparent;
+  border-right-color: #00d9f5;
+  border-bottom-color: rgba(0, 217, 245, 0.35);
+  box-shadow: 0 0 12px rgba(0, 217, 245, 0.4);
+  transform: rotateX(55deg);
+  animation: spinRing2 7s linear infinite;
 }
 
 .hero-profile-ring.ring-3 {
-  inset: -44px;
+  inset: -36px;
   border: 1.5px solid transparent;
-  border-top-color: rgba(0, 245, 212, 0.35);
-  border-bottom-color: rgba(112, 0, 255, 0.9);
-  box-shadow: 0 0 20px rgba(112, 0, 255, 0.25);
-  transform: rotateX(-35deg) rotateY(55deg);
-  animation: spinRing3 9s linear infinite;
+  border-top-color: rgba(0, 245, 212, 0.25);
+  border-left-color: rgba(0, 217, 245, 0.6);
+  box-shadow: 0 0 18px rgba(0, 245, 212, 0.15);
+  transform: rotateY(60deg);
+  animation: spinRing3 10s linear infinite;
 }
 
 @keyframes spinRing1 {
@@ -3081,8 +3081,8 @@ body::after {
 
 @media (max-width: 768px) {
   .hero-profile-frame {
-    width: 260px;
-    height: 260px;
+    width: 240px;
+    height: 240px;
   }
   .about-line--body {
     padding-left: 20px;
