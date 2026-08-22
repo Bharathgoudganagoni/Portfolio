@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaFileAlt, FaDownload, FaBars, FaTimes, FaQuestion, FaChevronDown, FaQuestionCircle } from "react-icons/fa";
+import { FaFileAlt, FaDownload, FaBars, FaTimes, FaQuestion, FaChevronDown, FaQuestionCircle, FaRobot } from "react-icons/fa";
 
 const navItems = [
   { id: "home", label: "Home" },
@@ -62,9 +62,9 @@ function FAQModal({ onClose }) {
   );
 }
 
-export default function SideNav() {
+export default function SideNav({ onOpenAiAssistant }) {
   const [activeSection, setActiveSection] = useState("home");
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [faqOpen, setFaqOpen] = useState(false);
 
   useEffect(() => {
@@ -87,18 +87,18 @@ export default function SideNav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent body scroll when FAQ modal is open
+  // Prevent body scroll when FAQ modal or menu drawer is open
   useEffect(() => {
-    if (faqOpen) {
+    if (faqOpen || menuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
-  }, [faqOpen]);
+  }, [faqOpen, menuOpen]);
 
   const scrollTo = (id) => {
-    setMobileOpen(false);
+    setMenuOpen(false);
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
@@ -107,11 +107,13 @@ export default function SideNav() {
 
   const handleViewResume = (e) => {
     e.preventDefault();
+    setMenuOpen(false);
     window.open(resumeUrl, "_blank", "noopener,noreferrer");
   };
 
   const handleDownloadResume = (e) => {
     e.preventDefault();
+    setMenuOpen(false);
     const link = document.createElement("a");
     link.href = resumeUrl;
     link.download = "Bharath_Goud_Resume.pdf";
@@ -122,59 +124,81 @@ export default function SideNav() {
 
   return (
     <>
-      {/* Mobile Toggle Button */}
+      {/* Top Right Floating 3-Line Menu Trigger Button (Visible on Desktop & Mobile) */}
       <button
-        className="mobile-nav-toggle"
-        onClick={() => setMobileOpen(!mobileOpen)}
+        className={`top-right-menu-toggle ${menuOpen ? "open" : ""}`}
+        onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Toggle Navigation Menu"
+        title="Open Navigation Menu"
       >
-        {mobileOpen ? <FaTimes /> : <FaBars />}
+        <div className="hamburger-box">
+          <span className="hamburger-line line-1" />
+          <span className="hamburger-line line-2" />
+          <span className="hamburger-line line-3" />
+        </div>
+        <span className="menu-toggle-label">{menuOpen ? "CLOSE" : "MENU"}</span>
       </button>
 
-      {/* Backdrop for Mobile */}
-      {mobileOpen && (
-        <div className="mobile-nav-backdrop" onClick={() => setMobileOpen(false)} />
+      {/* Backdrop for Slide-Out Navigation Panel */}
+      {menuOpen && (
+        <div className="top-nav-backdrop" onClick={() => setMenuOpen(false)} />
       )}
 
-      {/* Right Side Navigation Panel */}
-      <nav className={`side-nav ${mobileOpen ? "mobile-active" : ""}`}>
-        <div className="side-nav-inner">
-          <div className="side-nav-header">
-            <span className="side-nav-tag">Navigation</span>
+      {/* Top-Right Slide-Over Navigation Drawer */}
+      <nav className={`top-right-nav-drawer ${menuOpen ? "drawer-open" : ""}`}>
+        <div className="nav-drawer-inner">
+          <div className="nav-drawer-header">
+            <span className="nav-drawer-tag">BHARATH GOUD</span>
+            <h3 className="nav-drawer-title">Navigation</h3>
           </div>
 
-          <ul className="side-nav-list">
+          <ul className="nav-drawer-list">
             {navItems.map((item) => (
               <li key={item.id}>
                 <button
-                  className={`side-nav-link ${activeSection === item.id ? "active" : ""}`}
+                  className={`nav-drawer-link ${activeSection === item.id ? "active" : ""}`}
                   onClick={() => scrollTo(item.id)}
                 >
-                  <span className="side-nav-indicator" />
-                  <span className="side-nav-text">{item.label}</span>
+                  <span className="nav-link-indicator" />
+                  <span className="nav-link-text">{item.label}</span>
                 </button>
               </li>
             ))}
 
-            {/* FAQ special entry in nav list */}
+            {/* Bharath AI Robot Assistant Nav Entry */}
             <li>
               <button
-                className="side-nav-link faq-nav-btn"
-                onClick={() => { setFaqOpen(true); setMobileOpen(false); }}
+                className="nav-drawer-link ai-nav-btn"
+                onClick={() => {
+                  setMenuOpen(false);
+                  if (onOpenAiAssistant) onOpenAiAssistant();
+                }}
               >
-                <span className="side-nav-indicator faq-indicator" />
-                <span className="side-nav-text">FAQ</span>
-                <FaQuestion className="faq-nav-icon" />
+                <span className="nav-link-indicator ai-indicator" />
+                <span className="nav-link-text">Bharath AI</span>
+                <FaRobot className="nav-btn-icon ai-icon" />
+              </button>
+            </li>
+
+            {/* FAQ Entry */}
+            <li>
+              <button
+                className="nav-drawer-link faq-nav-btn"
+                onClick={() => { setFaqOpen(true); setMenuOpen(false); }}
+              >
+                <span className="nav-link-indicator faq-indicator" />
+                <span className="nav-link-text">FAQ</span>
+                <FaQuestion className="nav-btn-icon" />
               </button>
             </li>
           </ul>
 
-          <div className="side-nav-divider" />
+          <div className="nav-drawer-divider" />
 
           {/* Resume Actions */}
-          <div className="side-nav-actions">
+          <div className="nav-drawer-actions">
             <button
-              className="side-nav-btn view-btn"
+              className="drawer-action-btn view-btn"
               onClick={handleViewResume}
               title="Open Resume in new tab"
             >
@@ -183,7 +207,7 @@ export default function SideNav() {
             </button>
 
             <button
-              className="side-nav-btn download-btn"
+              className="drawer-action-btn download-btn"
               onClick={handleDownloadResume}
               title="Download Resume PDF"
             >

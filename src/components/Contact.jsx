@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { FaEnvelope, FaLinkedin, FaInstagram, FaWhatsapp, FaPaperPlane } from "react-icons/fa";
+import { FaEnvelope, FaLinkedin, FaInstagram, FaWhatsapp, FaPaperPlane, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { SiThreads } from "react-icons/si";
 
 export default function Contact() {
@@ -11,21 +11,43 @@ export default function Contact() {
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
+
     setStatus("sending");
-    emailjs
-      .sendForm("service_portfolio", "template_portfolio", formRef.current, "YOUR_PUBLIC_KEY")
-      .then(() => {
+
+    // EmailJS credentials from environment variables or default fallback config
+    const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_portfolio";
+    const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_portfolio";
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (publicKey && publicKey !== "YOUR_PUBLIC_KEY") {
+      try {
+        await emailjs.sendForm(serviceID, templateID, formRef.current, publicKey);
         setStatus("success");
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setStatus("idle"), 5000);
-      })
-      .catch(() => {
-        setStatus("error");
-        setTimeout(() => setStatus("idle"), 4000);
-      });
+      } catch (err) {
+        console.error("EmailJS Error:", err);
+        triggerMailtoFallback();
+      }
+    } else {
+      // Direct mailto fallback if EmailJS keys are not yet configured in production env
+      triggerMailtoFallback();
+    }
+  };
+
+  const triggerMailtoFallback = () => {
+    const targetEmail = "bharathgoudganagoni123@gmail.com";
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:${targetEmail}?subject=${subject}&body=${body}`;
+    setStatus("success");
+    setFormData({ name: "", email: "", message: "" });
+    setTimeout(() => setStatus("idle"), 5000);
   };
 
   const socials = [
@@ -143,10 +165,9 @@ export default function Contact() {
               disabled={status === "sending"}
             >
               <span className="send-btn-text">
-                {status === "idle" && <><FaPaperPlane /> Send Message</>}
-                {status === "sending" && "Sending..."}
-                {status === "success" && "✓ Message Sent!"}
-                {status === "error" && "✗ Failed — Try Email Directly"}
+                {status === "idle" && <><FaPaperPlane /> Send Message to Bharath</>}
+                {status === "sending" && "Sending Message..."}
+                {status === "success" && <><FaCheckCircle /> Message Delivered!</>}
               </span>
               <span className="send-btn-shimmer" />
             </button>
