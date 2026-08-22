@@ -880,12 +880,26 @@ body::after {
   justify-content: center;
 }
 
-.profile-glow-ring {
+/* Pulsating background circle behind profile picture */
+.profile-wrapper::before {
+  content: "";
   position: absolute;
-  inset: -15px;
+  inset: -20px;
   border-radius: 50%;
-  border: 2px dashed rgba(0, 245, 212, 0.3);
-  animation: rotateRing 20s linear infinite;
+  background: radial-gradient(circle, rgba(0, 245, 212, 0.2), transparent);
+  animation: pulseRing 3s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.3); opacity: 0.3; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+/* Hide the original dashed glow ring; we'll use a smooth pulsating circle instead */
+.profile-glow-ring {
+  display: none;
 }
 
 @keyframes rotateRing {
@@ -898,7 +912,7 @@ body::after {
   height: 240px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--accent);
+  /* Removed solid border for a cleaner look */
   box-shadow: 0 0 40px rgba(0, 245, 212, 0.4), inset 0 0 20px rgba(0, 245, 212, 0.2);
   transition: all 0.4s ease;
 }
@@ -2178,44 +2192,49 @@ body::after {
   display: block;
 }
 
-/* Hero profile: premium rectangular frame */
+/* Hero profile: premium circular/organic frame */
 .hero-profile-frame {
   position: relative;
   width: 300px;
-  height: 360px;
+  height: 300px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-profile-glow {
   position: absolute;
-  inset: -20px;
-  border-radius: 32px;
-  background: radial-gradient(ellipse at center, rgba(0,245,212,0.18) 0%, transparent 70%);
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 245, 212, 0.25) 0%, transparent 70%);
   z-index: 0;
-  filter: blur(18px);
+  filter: blur(10px);
 }
 
+/* Pulsating fluid organic background shape behind profile */
 .hero-profile-border-animated {
   position: absolute;
-  inset: -3px;
-  border-radius: 28px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    var(--accent) 60deg,
-    transparent 120deg,
-    transparent 180deg,
-    rgba(0,217,245,0.7) 240deg,
-    transparent 300deg,
-    transparent 360deg
-  );
-  animation: borderSpin 6s linear infinite;
+  inset: -15px;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  background: linear-gradient(45deg, rgba(0, 245, 212, 0.4), rgba(112, 0, 255, 0.4));
+  animation: morphShape 8s ease-in-out infinite;
   z-index: 0;
 }
 
-@keyframes borderSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+@keyframes morphShape {
+  0% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: rotate(0deg) scale(0.95);
+  }
+  50% {
+    border-radius: 70% 30% 50% 50% / 30% 60% 40% 70%;
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    transform: rotate(360deg) scale(0.95);
+  }
 }
 
 .hero-profile-img {
@@ -2224,15 +2243,16 @@ body::after {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 24px;
-  border: 3px solid rgba(0,245,212,0.3);
+  border-radius: 50%;
+  /* Removed solid border */
+  border: none;
   display: block;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 30px rgba(0,245,212,0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 35px rgba(0,245,212,0.3);
   transition: transform 0.4s ease;
 }
 
 .hero-profile-img:hover {
-  transform: scale(1.02);
+  transform: scale(1.04);
 }
 
 .hero-profile-tag {
@@ -3034,7 +3054,7 @@ body::after {
 @media (max-width: 768px) {
   .hero-profile-frame {
     width: 220px;
-    height: 265px;
+    height: 220px;
   }
   .about-line--body {
     padding-left: 20px;
