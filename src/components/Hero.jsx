@@ -138,7 +138,9 @@ export default function Hero() {
           <div className={`hero-content-right ${scrolled ? "hero-profile-hidden" : ""}`}>
             <div className="hero-profile-frame">
               <div className="hero-profile-glow" />
-              <div className="hero-profile-border-animated" />
+              <div className="hero-profile-ring ring-1" />
+              <div className="hero-profile-ring ring-2" />
+              <div className="hero-profile-ring ring-3" />
               <img
                 src={`${import.meta.env.BASE_URL}Bharath_profile.png`}
                 className="hero-profile-img"
