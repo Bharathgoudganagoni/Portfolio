@@ -22,7 +22,9 @@ html {
   scroll-behavior: smooth;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   min-height: 100%;
 }
 
@@ -36,7 +38,9 @@ body {
   line-height: 1.6;
 }
 
-body::before, body::after, .portfolio-app-root::before {
+body::before,
+body::after,
+.portfolio-app-root::before {
   will-change: transform;
 }
 
@@ -53,14 +57,20 @@ body::before {
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: radial-gradient(circle, rgba(0, 245, 212, 0.15) 2px, transparent 2px),
-              radial-gradient(circle, rgba(0, 245, 212, 0.08) 1px, transparent 1px);
+    radial-gradient(circle, rgba(0, 245, 212, 0.08) 1px, transparent 1px);
   background-size: 120px 120px, 60px 60px;
   animation: rotateRadar 40s linear infinite;
   z-index: -3;
 }
+
 @keyframes rotateRadar {
-  from { transform: translate(-50%, -50%) rotate(0); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  from {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 body::after {
@@ -76,10 +86,19 @@ body::after {
   animation: pulseCore 4s ease-in-out infinite;
   z-index: -2;
 }
+
 @keyframes pulseCore {
-  0% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -50%) scale(1.2); }
-  100% { transform: translate(-50%, -50%) scale(1); }
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .portfolio-app-root::before {
@@ -92,9 +111,15 @@ body::after {
   opacity: 0.15;
   z-index: -1;
 }
+
 @keyframes particleMove {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-300px, -300px); }
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-300px, -300px);
+  }
 }
 
 /* ==========================================================================
@@ -194,8 +219,15 @@ body::after {
 }
 
 @keyframes entryScaleUp {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .entry-badge {
@@ -253,9 +285,20 @@ body::after {
 }
 
 @keyframes pulseDot {
-  0% { transform: scale(0.8); opacity: 0.6; }
-  50% { transform: scale(1.4); opacity: 1; }
-  100% { transform: scale(0.8); opacity: 0.6; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
 }
 
 .entry-arrow {
@@ -263,8 +306,15 @@ body::after {
 }
 
 @keyframes bounceDown {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(5px);
+  }
 }
 
 /* ==========================================================================
@@ -703,9 +753,18 @@ body::after {
   height: 10px;
   border-radius: 50%;
 }
-.terminal-dot.red { background: #ff5f56; }
-.terminal-dot.yellow { background: #ffbd2e; }
-.terminal-dot.green { background: #27c93f; }
+
+.terminal-dot.red {
+  background: #ff5f56;
+}
+
+.terminal-dot.yellow {
+  background: #ffbd2e;
+}
+
+.terminal-dot.green {
+  background: #27c93f;
+}
 
 .terminal-title {
   color: var(--muted);
@@ -764,7 +823,9 @@ body::after {
 }
 
 @keyframes blinkBlock {
-  to { visibility: hidden; }
+  to {
+    visibility: hidden;
+  }
 }
 
 .hero-greeting {
@@ -892,9 +953,20 @@ body::after {
 }
 
 @keyframes pulseRing {
-  0% { transform: scale(0.9); opacity: 0.6; }
-  50% { transform: scale(1.3); opacity: 0.3; }
-  100% { transform: scale(0.9); opacity: 0.6; }
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
 }
 
 /* Hide the original dashed glow ring; we'll use a smooth pulsating circle instead */
@@ -903,8 +975,13 @@ body::after {
 }
 
 @keyframes rotateRing {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .profile-pic {
@@ -1687,13 +1764,25 @@ body::after {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* ==========================================================================
@@ -2059,24 +2148,30 @@ body::after {
     text-align: center;
     gap: 40px;
   }
+
   .hero-content-left {
     align-items: center;
   }
+
   .terminal-container {
     margin: 0 auto;
   }
+
   .hero-cta-group {
     justify-content: center;
   }
+
   .side-nav {
     right: 16px;
   }
+
   .contact-grid-layout {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
+
   /* Mobile Navigation Menu Drawer */
   .mobile-nav-toggle {
     display: flex;
@@ -2111,7 +2206,8 @@ body::after {
     padding-left: 30px;
   }
 
-  .timeline-path-bg, .timeline-path-fill {
+  .timeline-path-bg,
+  .timeline-path-fill {
     left: 10px;
   }
 
@@ -2146,15 +2242,19 @@ body::after {
   .section-title {
     font-size: 2rem;
   }
+
   .form-group-grid {
     grid-template-columns: 1fr;
   }
+
   .modal-dialog {
     padding: 24px;
   }
+
   .modal-title {
     font-size: 1.5rem;
   }
+
   .modal-meta-grid {
     grid-template-columns: 1fr;
   }
@@ -2162,7 +2262,10 @@ body::after {
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
+
+  *,
+  ::before,
+  ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -2176,7 +2279,8 @@ body::after {
 .profile-floating {
   position: fixed;
   top: 18px;
-  right: 260px; /* to the left of the SideNav */
+  right: 260px;
+  /* to the left of the SideNav */
   z-index: 200;
   transition: opacity 0.4s ease, transform 0.4s ease;
   will-change: opacity, transform;
@@ -2251,18 +2355,33 @@ body::after {
 }
 
 @keyframes spinRing1 {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spinRing2 {
-  0% { transform: rotateX(40deg) rotateY(20deg) rotate(360deg); }
-  100% { transform: rotateX(40deg) rotateY(20deg) rotate(0deg); }
+  0% {
+    transform: rotateX(40deg) rotateY(20deg) rotate(360deg);
+  }
+
+  100% {
+    transform: rotateX(40deg) rotateY(20deg) rotate(0deg);
+  }
 }
 
 @keyframes spinRing3 {
-  0% { transform: rotateX(-30deg) rotateY(45deg) rotate(0deg); }
-  100% { transform: rotateX(-30deg) rotateY(45deg) rotate(360deg); }
+  0% {
+    transform: rotateX(-30deg) rotateY(45deg) rotate(0deg);
+  }
+
+  100% {
+    transform: rotateX(-30deg) rotateY(45deg) rotate(360deg);
+  }
 }
 
 .hero-profile-img {
@@ -2275,7 +2394,7 @@ body::after {
   border-radius: 50%;
   border: none;
   display: block;
-  box-shadow: 0 24px 70px rgba(0,0,0,0.7), 0 0 50px rgba(0,245,212,0.35);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7), 0 0 50px rgba(0, 245, 212, 0.35);
   transition: transform 0.4s ease;
 }
 
@@ -2289,7 +2408,7 @@ body::after {
   left: 50%;
   transform: translateX(-50%);
   background: rgba(10, 16, 26, 0.95);
-  border: 1px solid rgba(0,245,212,0.3);
+  border: 1px solid rgba(0, 245, 212, 0.3);
   border-radius: 30px;
   padding: 7px 16px;
   display: flex;
@@ -2300,7 +2419,7 @@ body::after {
   color: var(--white);
   white-space: nowrap;
   z-index: 2;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .profile-tag-dot {
@@ -2409,7 +2528,7 @@ body::after {
 .about-line--body {
   margin-bottom: 4px;
   padding-left: 44px;
-  border-left: 2px solid rgba(0,245,212,0.2);
+  border-left: 2px solid rgba(0, 245, 212, 0.2);
 }
 
 .about-body-text {
@@ -2431,7 +2550,8 @@ body::after {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin: 0 -24px 50px -24px; /* bleed past container edges */
+  margin: 0 -24px 50px -24px;
+  /* bleed past container edges */
   overflow: hidden;
 }
 
@@ -2460,13 +2580,23 @@ body::after {
 }
 
 @keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes marqueeScrollReverse {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 /* Pause on hover */
@@ -2480,7 +2610,7 @@ body::after {
   align-items: center;
   gap: 10px;
   background: rgba(15, 23, 32, 0.8);
-  border: 1px solid rgba(0,245,212,0.12);
+  border: 1px solid rgba(0, 245, 212, 0.12);
   border-radius: 40px;
   padding: 10px 18px;
   white-space: nowrap;
@@ -2491,8 +2621,8 @@ body::after {
 
 .skill-bubble:hover {
   background: rgba(15, 23, 32, 0.95);
-  border-color: rgba(0,245,212,0.4);
-  box-shadow: 0 4px 20px rgba(0,245,212,0.15);
+  border-color: rgba(0, 245, 212, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 245, 212, 0.15);
   transform: translateY(-2px);
 }
 
@@ -2516,8 +2646,8 @@ body::after {
 }
 
 .skill-cluster-card {
-  background: rgba(15,23,32,0.5);
-  border: 1px solid rgba(0,245,212,0.12);
+  background: rgba(15, 23, 32, 0.5);
+  border: 1px solid rgba(0, 245, 212, 0.12);
   border-radius: 18px;
   padding: 26px 28px;
   backdrop-filter: blur(10px);
@@ -2526,13 +2656,20 @@ body::after {
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .skill-cluster-card:hover {
-  border-color: rgba(0,245,212,0.4);
-  box-shadow: 0 10px 30px rgba(0,245,212,0.12);
+  border-color: rgba(0, 245, 212, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 245, 212, 0.12);
   transform: translateY(-4px);
 }
 
@@ -2550,8 +2687,8 @@ body::after {
   display: flex;
   align-items: center;
   gap: 7px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   padding: 6px 12px;
   cursor: default;
@@ -2560,13 +2697,20 @@ body::after {
 }
 
 @keyframes chipEntrance {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .skill-icon-chip:hover {
-  background: rgba(0,245,212,0.08);
-  border-color: rgba(0,245,212,0.3);
+  background: rgba(0, 245, 212, 0.08);
+  border-color: rgba(0, 245, 212, 0.3);
   transform: scale(1.05);
 }
 
@@ -2587,7 +2731,7 @@ body::after {
 .faq-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(5,7,13,0.88);
+  background: rgba(5, 7, 13, 0.88);
   backdrop-filter: blur(16px);
   z-index: 10000;
   display: flex;
@@ -2597,20 +2741,27 @@ body::after {
 }
 
 .faq-modal-panel {
-  background: rgba(10,16,26,0.98);
-  border-left: 1px solid rgba(0,245,212,0.25);
+  background: rgba(10, 16, 26, 0.98);
+  border-left: 1px solid rgba(0, 245, 212, 0.25);
   height: 100vh;
   width: 480px;
   max-width: 95vw;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: slideInRight 0.4s cubic-bezier(0.165,0.84,0.44,1);
+  animation: slideInRight 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @keyframes slideInRight {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .faq-modal-header {
@@ -2618,7 +2769,7 @@ body::after {
   justify-content: space-between;
   align-items: flex-start;
   padding: 36px 30px 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 
@@ -2641,8 +2792,8 @@ body::after {
 }
 
 .faq-modal-close {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--muted);
   width: 38px;
   height: 38px;
@@ -2657,7 +2808,7 @@ body::after {
 }
 
 .faq-modal-close:hover {
-  background: rgba(255,95,86,0.15);
+  background: rgba(255, 95, 86, 0.15);
   color: #ff5f56;
 }
 
@@ -2666,11 +2817,11 @@ body::after {
   flex: 1;
   padding: 20px 30px 40px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0,245,212,0.3) transparent;
+  scrollbar-color: rgba(0, 245, 212, 0.3) transparent;
 }
 
 .faq-modal-item {
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .faq-modal-q {
@@ -2721,7 +2872,7 @@ body::after {
 .faq-modal-answer-wrap {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.165,0.84,0.44,1);
+  transition: max-height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .faq-modal-item.open .faq-modal-answer-wrap {
@@ -2738,14 +2889,14 @@ body::after {
 /* FAQ nav special style */
 .faq-nav-btn {
   color: var(--accent) !important;
-  border: 1px solid rgba(0,245,212,0.2) !important;
+  border: 1px solid rgba(0, 245, 212, 0.2) !important;
   border-radius: 10px !important;
   justify-content: space-between !important;
 }
 
 .faq-nav-btn:hover {
-  background: rgba(0,245,212,0.12) !important;
-  border-color: rgba(0,245,212,0.4) !important;
+  background: rgba(0, 245, 212, 0.12) !important;
+  border-color: rgba(0, 245, 212, 0.4) !important;
 }
 
 .faq-nav-icon {
@@ -2775,7 +2926,7 @@ body::after {
 .contact-blob-1 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(0,245,212,0.6), transparent);
+  background: radial-gradient(circle, rgba(0, 245, 212, 0.6), transparent);
   top: -100px;
   left: -150px;
 }
@@ -2783,7 +2934,7 @@ body::after {
 .contact-blob-2 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(0,217,245,0.5), transparent);
+  background: radial-gradient(circle, rgba(0, 217, 245, 0.5), transparent);
   bottom: -80px;
   right: 0;
 }
@@ -2840,8 +2991,8 @@ body::after {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: var(--white);
   display: flex;
   align-items: center;
@@ -2853,11 +3004,11 @@ body::after {
 }
 
 .contact-social-btn:hover {
-  background: rgba(var(--social-color-rgb, 0,245,212), 0.15);
+  background: rgba(var(--social-color-rgb, 0, 245, 212), 0.15);
   border-color: var(--social-color, var(--accent));
   color: var(--social-color, var(--accent));
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .social-tooltip {
@@ -2865,7 +3016,7 @@ body::after {
   bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(15,23,32,0.95);
+  background: rgba(15, 23, 32, 0.95);
   color: var(--white);
   font-size: 0.72rem;
   font-weight: 600;
@@ -2875,7 +3026,7 @@ body::after {
   opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .contact-social-btn:hover .social-tooltip {
@@ -2896,17 +3047,17 @@ body::after {
 
 .contact-direct-email:hover {
   opacity: 1;
-  text-shadow: 0 0 12px rgba(0,245,212,0.5);
+  text-shadow: 0 0 12px rgba(0, 245, 212, 0.5);
 }
 
 /* Right panel: floating-label form */
 .contact-right-panel {
-  background: rgba(12,19,30,0.7);
-  border: 1px solid rgba(0,245,212,0.18);
+  background: rgba(12, 19, 30, 0.7);
+  border: 1px solid rgba(0, 245, 212, 0.18);
   border-radius: 28px;
   padding: 40px 36px;
   backdrop-filter: blur(16px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 .contact-form-minimal {
@@ -2925,7 +3076,7 @@ body::after {
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   padding: 18px 0 8px 0;
   color: var(--white);
   font-family: var(--font-body);
@@ -2954,8 +3105,8 @@ body::after {
 }
 
 /* Float label up when field has content or is focused */
-.form-float-input:focus ~ .form-float-label,
-.form-float-input:not(:placeholder-shown) ~ .form-float-label {
+.form-float-input:focus~.form-float-label,
+.form-float-input:not(:placeholder-shown)~.form-float-label {
   top: 2px;
   font-size: 0.72rem;
   letter-spacing: 1px;
@@ -3000,22 +3151,22 @@ body::after {
   cursor: pointer;
   overflow: hidden;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0,245,212,0.3);
+  box-shadow: 0 4px 20px rgba(0, 245, 212, 0.3);
 }
 
 .contact-send-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,245,212,0.5);
+  box-shadow: 0 8px 30px rgba(0, 245, 212, 0.5);
 }
 
 .contact-send-btn.success {
   background: linear-gradient(135deg, #27c93f, #3af55a);
-  box-shadow: 0 4px 20px rgba(39,201,63,0.4);
+  box-shadow: 0 4px 20px rgba(39, 201, 63, 0.4);
 }
 
 .contact-send-btn.error {
   background: linear-gradient(135deg, #ff5f56, #ff8a80);
-  box-shadow: 0 4px 20px rgba(255,95,86,0.4);
+  box-shadow: 0 4px 20px rgba(255, 95, 86, 0.4);
 }
 
 .send-btn-text {
@@ -3034,7 +3185,7 @@ body::after {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
   transition: none;
 }
 
@@ -3048,9 +3199,11 @@ body::after {
   .contact-inner {
     grid-template-columns: 1fr;
   }
+
   .contact-right-panel {
     padding: 30px 24px;
   }
+
   .contact-big-title {
     font-size: 2.2rem;
   }
@@ -3062,18 +3215,23 @@ body::after {
     grid-template-columns: 1fr;
     text-align: center;
   }
+
   .hero-content-left {
     align-items: center;
   }
+
   .hero-content-right {
     justify-content: center;
   }
+
   .terminal-container {
     margin: 0 auto;
   }
+
   .hero-cta-group {
     justify-content: center;
   }
+
   .profile-floating {
     right: 90px;
   }
@@ -3081,25 +3239,29 @@ body::after {
 
 @media (max-width: 768px) {
   .hero-profile-frame {
-    width: 240px;
-    height: 240px;
+    width: 260px;
+    height: 260px;
   }
+
   .about-line--body {
-    padding-left: 20px;
+    padding-left: 90px;
   }
+
   .skills-marquee-container {
     margin: 0 -16px 40px -16px;
   }
+
   .profile-floating {
     right: 72px;
     top: 14px;
   }
+
   .profile-floating-img {
     width: 44px;
     height: 44px;
   }
+
   .hide-mobile {
     display: none;
   }
 }
-

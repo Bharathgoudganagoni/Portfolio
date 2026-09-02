@@ -74,13 +74,47 @@ const SUGGESTIONS = [
   "View resume"
 ];
 
-// Fallback Gemini Model Endpoints (Tries supported active endpoints sequentially)
+// Supported Gemini endpoints
 const GEMINI_MODELS = [
-  "gemini-3.6-flash",
-  "gemini-3.1-pro-preview",
-  "gemini-2.5-flash",
-  "gemini-1.5-flash"
+  "gemini-1.5-flash",
+  "gemini-2.0-flash",
+  "gemini-1.5-pro"
 ];
+
+// Zero-Fail Knowledge Engine for Portfolio Facts
+const generateLocalKnowledgeResponse = (userQuery) => {
+  const q = userQuery.toLowerCase();
+
+  if (q.includes("hi") || q.includes("hello") || q.includes("hey") || q.includes("who are you") || q.includes("tell me about")) {
+    return "Hello! I am Bharath AI, digital assistant for Ganagoni Bharath Goud. Bharath is a Computer Science Engineer, Full Stack Developer (MERN Stack & Python), and UI/UX Designer who builds high-performance, scalable web apps and intuitive interfaces.";
+  }
+
+  if (q.includes("experience") || q.includes("internship") || q.includes("work") || q.includes("company") || q.includes("job") || q.includes("edunet") || q.includes("keezenix")) {
+    return "Bharath has completed 2 key professional internships:\n\n1. MERN Full Stack Developer Intern at Edunet Foundation (NxtGen 3.0, Dec 2024 – Jan 2025): Built a full-stack Spotify Clone with real-time music streaming, JWT auth, and MongoDB.\n\n2. Web Developer & UI/UX Intern at Keezenix Global LLP (Feb 2026): Designed and deployed the official corporate website (www.keezenix.com) with custom UI/UX wireframes and React.";
+  }
+
+  if (q.includes("project") || q.includes("portfolio") || q.includes("built") || q.includes("gesture") || q.includes("spotify") || q.includes("netflix") || q.includes("whatsapp")) {
+    return "Here are some of Bharath's highlighted projects:\n\n• Keezenix Corporate Site (www.keezenix.com): Commercial React & TypeScript corporate platform.\n• Gesture Control System: Real-time computer vision desktop utility using Python, OpenCV, and MediaPipe 3D hand tracking (21 landmarks) for OS control.\n• Netflix Clone: Full-stack MERN app with live TMDB API feed, JWT auth, and OTP email validation.\n• WhatsApp Emergency Alert System: Incident dispatch system connecting React & Express with Twilio automated broadcasts.\n• Voice-Enabled Calculator: Web Speech API powered smart calculator.";
+  }
+
+  if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("language") || q.includes("python") || q.includes("react") || q.includes("node")) {
+    return "Bharath's Technical Stack:\n\n• Frontend: React, JavaScript (ES6+), Angular, TypeScript, HTML5, CSS3, Tailwind CSS, Next.js, Redux.\n• Backend & DB: Node.js, Express.js, MongoDB, Mongoose, Python, PostgreSQL, REST APIs, Socket.io, JWT Auth.\n• Tools & Design: Git & GitHub, Docker, Postman, Linux, Figma, Canva, Photoshop.";
+  }
+
+  if (q.includes("resume") || q.includes("cv") || q.includes("bio")) {
+    return "Bharath's official resume is available directly! You can view or download the PDF using the action buttons provided below.";
+  }
+
+  if (q.includes("contact") || q.includes("email") || q.includes("phone") || q.includes("reach") || q.includes("hire") || q.includes("linkedin") || q.includes("github")) {
+    return "You can connect with Bharath directly:\n\n• Email: bharathgoudganagoni123@gmail.com\n• Phone / WhatsApp: +91 9666809898\n• LinkedIn: linkedin.com/in/ganagoni-bharath-goud\n• GitHub: github.com/bharathgoudganagoni";
+  }
+
+  if (q.includes("education") || q.includes("degree") || q.includes("college") || q.includes("university")) {
+    return "Bharath is a Computer Science Engineer with deep expertise in full-stack web development, Python automation systems, software architecture, and user experience design.";
+  }
+
+  return "Bharath is a Computer Science Engineer and MERN / Python Full Stack Developer specializing in scalable applications and modern UI/UX design. Feel free to ask about his internships (Edunet, Keezenix), projects (Gesture Control, Spotify/Netflix Clones), skills, or contact info!";
+};
 
 export default function AiAssistant({ isOpenExternal, onCloseExternal }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -236,13 +270,16 @@ export default function AiAssistant({ isOpenExternal, onCloseExternal }) {
     setMessages(newHistory);
     setIsTyping(true);
 
-    // Call real Gemini Generative AI
-    const responseText = await fetchGeminiResponse(query, messages);
+    // Call real Gemini Generative AI, or fallback seamlessly to Local Knowledge Engine
+    let responseText = await fetchGeminiResponse(query, messages);
+    if (!responseText) {
+      responseText = generateLocalKnowledgeResponse(query);
+    }
 
     setIsTyping(false);
 
     if (responseText) {
-      // Check if response suggests resume actions
+      // Check if response suggests action shortcuts
       const lowerQ = query.toLowerCase();
       let actionType = null;
       if (lowerQ.includes("resume") || lowerQ.includes("cv")) {
@@ -265,17 +302,6 @@ export default function AiAssistant({ isOpenExternal, onCloseExternal }) {
         actionType
       };
       setMessages((prev) => [...prev, aiMsg]);
-    } else {
-      // Professional connection error handling
-      setIsError(true);
-      const errorMsg = {
-        id: (Date.now() + 1).toString(),
-        sender: "ai",
-        isError: true,
-        text: "I'm having trouble connecting to Bharath AI right now. Please try again in a moment.",
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-      setMessages((prev) => [...prev, errorMsg]);
     }
   };
 
