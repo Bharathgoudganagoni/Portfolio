@@ -99,6 +99,21 @@ export default function SideNav({ onOpenAiAssistant }) {
 
   const scrollTo = (id) => {
     setMenuOpen(false);
+    const sectionIndexMap = {
+      home: 0,
+      about: 1,
+      experience: 2,
+      skills: 3,
+      projects: 4,
+      contact: 5,
+    };
+
+    if (window.__portfolioScrollToSection && sectionIndexMap[id] !== undefined) {
+      window.__portfolioScrollToSection(sectionIndexMap[id]);
+      setActiveSection(id);
+      return;
+    }
+
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };

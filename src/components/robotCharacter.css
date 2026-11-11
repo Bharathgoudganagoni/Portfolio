@@ -1,118 +1,132 @@
 /* ==========================================================================
-   MINIMAL FUTURISTIC AI ROBOT COMPANION WIDGET
+   FUTURISTIC LOTTIE ROBOT COMPANION WIDGET
+   Matches the Portfolio's Cyber-Neon Cyan & Dark Aesthetic
    ========================================================================== */
 
 .robot-companion-widget {
   position: fixed;
-  bottom: 28px;
+  bottom: 26px;
   right: 28px;
-  z-index: 999;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
   user-select: none;
-  animation: robotGentleFloat 4s ease-in-out infinite;
-  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: robotHoverFloat 3.8s ease-in-out infinite;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  outline: none;
 }
 
-@keyframes robotGentleFloat {
+@keyframes robotHoverFloat {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
   }
 }
 
 /* Hover State */
 .robot-companion-widget.hovered {
   animation-play-state: paused;
-  transform: translateY(-8px) scale(1.08);
+  transform: translateY(-10px) scale(1.06);
 }
 
-/* Click Animation */
+/* Click Micro-bounce */
 .robot-companion-widget.clicked {
-  transform: scale(0.92);
+  transform: scale(0.92) translateY(2px);
 }
 
-.robot-avatar-container {
-  width: 54px;
-  height: 58px;
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(0, 245, 212, 0.3));
-  transition: filter 0.25s ease;
+/* Robot Container & Glow */
+.robot-lottie-container {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.7));
+  transition: filter 0.3s ease;
 }
 
-.robot-companion-widget:hover .robot-avatar-container {
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 20px rgba(0, 245, 212, 0.6));
+.robot-companion-widget:hover .robot-lottie-container {
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.8))
+          drop-shadow(0 0 20px rgba(0, 245, 212, 0.55));
 }
 
-.robot-svg-mini {
+/* Ambient Radial Glow Behind Lottie */
+.robot-ambient-glow {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 245, 212, 0.25) 0%, rgba(0, 217, 245, 0.1) 45%, transparent 70%);
+  z-index: 0;
+  filter: blur(10px);
+  animation: robotGlowPulse 2.8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes robotGlowPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* Lottie Host Iframe */
+.robot-lottie-frame {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  overflow: visible;
+  border: none;
+  background: transparent;
+  pointer-events: none; /* Allows click events to pass to parent button */
+  overflow: hidden;
 }
 
-/* Antenna & Core Pulse */
-.antenna-glow {
-  animation: antennaPulse 2s infinite ease-in-out;
+/* Click Overlay (Ensures 100% capture across whole area) */
+.robot-click-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: pointer;
+  background: transparent;
 }
 
-@keyframes antennaPulse {
-  0%, 100% {
-    fill: #00f5d4;
-    filter: drop-shadow(0 0 3px #00f5d4);
-  }
-  50% {
-    fill: #00b4d8;
-    filter: drop-shadow(0 0 8px #00f5d4);
-  }
-}
-
-.core-dot {
-  animation: coreGlow 2.5s infinite ease-in-out;
-}
-
-@keyframes coreGlow {
-  0%, 100% {
-    opacity: 0.7;
-  }
-  50% {
-    opacity: 1;
-    filter: drop-shadow(0 0 6px #7000ff);
-  }
-}
-
-/* Eye Blink Animation when idle */
-.eye-pulse {
-  animation: eyeBlink 5s infinite;
-}
-
-@keyframes eyeBlink {
-  0%, 94%, 100% { transform: scaleY(1); }
-  97% { transform: scaleY(0.1); }
-}
-
-/* Short Minimal Tooltip */
+/* Sleek Tooltip with Chat Prompt */
 .robot-mini-tooltip {
   position: absolute;
-  bottom: 68px;
+  bottom: 122px;
   right: 50%;
-  transform: translateX(50%) translateY(8px);
+  transform: translateX(50%) translateY(10px);
   white-space: nowrap;
-  background: rgba(10, 16, 28, 0.92);
+  background: rgba(10, 16, 28, 0.94);
   color: #00f5d4;
   font-family: var(--font-mono, monospace);
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 14px;
-  border: 1px solid rgba(0, 245, 212, 0.4);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 245, 212, 0.2);
-  backdrop-filter: blur(10px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 245, 212, 0.45);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 245, 212, 0.3);
+  backdrop-filter: blur(12px);
   opacity: 0;
   pointer-events: none;
-  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tooltip-chat-icon {
+  font-size: 0.78rem;
+  color: #00f5d4;
 }
 
 .robot-companion-widget:hover .robot-mini-tooltip {
@@ -120,35 +134,89 @@
   transform: translateX(50%) translateY(0);
 }
 
-/* Tiny Badge Tag */
-.robot-badge-tag {
+/* Futuristic AI Status Pill below Robot */
+.robot-status-pill {
   margin-top: 2px;
-  background: rgba(12, 18, 30, 0.85);
-  border: 1px solid rgba(0, 245, 212, 0.4);
+  background: rgba(12, 18, 30, 0.92);
+  border: 1px solid rgba(0, 245, 212, 0.35);
   color: #00f5d4;
   font-family: var(--font-mono, monospace);
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 10px;
-  letter-spacing: 0.8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  padding: 3px 10px;
+  border-radius: 12px;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 245, 212, 0.2);
+  backdrop-filter: blur(8px);
   transition: all 0.25s ease;
 }
 
-.robot-companion-widget:hover .robot-badge-tag {
+.robot-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   background: #00f5d4;
-  color: #050b14;
-  box-shadow: 0 0 10px rgba(0, 245, 212, 0.5);
+  box-shadow: 0 0 8px #00f5d4;
+  animation: robotLivePulse 1.8s infinite;
 }
 
-@media (max-width: 576px) {
+@keyframes robotLivePulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.85);
+    opacity: 0.5;
+  }
+}
+
+.robot-pill-icon {
+  font-size: 0.7rem;
+  color: #00f5d4;
+}
+
+.robot-companion-widget:hover .robot-status-pill {
+  background: #00f5d4;
+  color: #050b14;
+  border-color: #00f5d4;
+  box-shadow: 0 0 16px rgba(0, 245, 212, 0.6);
+}
+
+.robot-companion-widget:hover .robot-status-pill .robot-pill-icon,
+.robot-companion-widget:hover .robot-status-pill .robot-pulse-dot {
+  color: #050b14;
+  background: #050b14;
+  box-shadow: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
   .robot-companion-widget {
     bottom: 20px;
-    right: 20px;
+    right: 18px;
   }
-  .robot-avatar-container {
-    width: 48px;
-    height: 52px;
+
+  .robot-lottie-container {
+    width: 78px;
+    height: 78px;
+  }
+
+  .robot-mini-tooltip {
+    bottom: 105px;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+
+  .robot-status-pill {
+    font-size: 0.6rem;
+    padding: 2px 8px;
   }
 }

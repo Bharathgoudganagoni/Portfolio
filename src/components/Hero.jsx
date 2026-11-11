@@ -12,8 +12,6 @@ export default function Hero() {
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [scrollRatio, setScrollRatio] = useState(0);
 
   // Typing animation
   useEffect(() => {
@@ -34,126 +32,158 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, [text, isDeleting, index]);
 
-  // Profile scroll-shrink logic
-  useEffect(() => {
-    const heroEl = document.getElementById("home");
-    const handleScroll = () => {
-      if (!heroEl) return;
-      const heroH = heroEl.offsetHeight;
-      const ratio = Math.min(1, Math.max(0, window.scrollY / (heroH * 0.7)));
-      setScrollRatio(ratio);
-      setScrolled(ratio > 0.35);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const scrollToAbout = () => {
+    if (window.__portfolioScrollToSection) {
+      window.__portfolioScrollToSection(1);
+      return;
+    }
     const el = document.getElementById("about");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Compute floating profile styles
-  // Large: 280x280 in hero, Small: 52x52 fixed top-right
-  const profileSize = scrolled ? 52 : 280;
-  const borderRadius = scrolled ? "50%" : "24px";
-  const profileFixed = scrolled;
-
   return (
-    <>
-      {/* Floating sticky profile (appears after scroll) */}
-      {profileFixed && (
-        <div
-          className="profile-floating"
-          style={{
-            opacity: scrollRatio > 0.5 ? 1 : 0,
-            transform: `scale(${0.5 + scrollRatio * 0.5})`,
-          }}
-        >
-          <img
-            src={`${import.meta.env.BASE_URL}Bharath_profile.png`}
-            alt="Ganagoni Bharath Goud"
-            className="profile-floating-img"
-          />
-        </div>
-      )}
-
-      <header className="hero-container" id="home">
-        <div className="hero-inner">
-          {/* Left: Text + Terminal */}
-          <div className="hero-content-left">
-            {/* Terminal */}
-            <div className="terminal-container">
-              <div className="terminal-header">
-                <span className="terminal-dot red"></span>
-                <span className="terminal-dot yellow"></span>
-                <span className="terminal-dot green"></span>
-                <span className="terminal-title">developer.sh</span>
-              </div>
-              <div className="terminal-body">
-                <div className="terminal-line">
-                  <span className="terminal-prompt">ganagoni@bharath:~$</span>{" "}
-                  <span className="terminal-command">node run-portfolio.js</span>
-                </div>
-                <div className="terminal-line terminal-output">
-                  <span className="terminal-arrow">&gt;&gt;</span>{" "}
-                  <span className="terminal-text">{text}</span>
-                  <span className="terminal-cursor">█</span>
-                </div>
-              </div>
+    <header className="hero-container" id="home">
+      <div className="hero-inner">
+        {/* Left: Text + Terminal */}
+        <div className="hero-content-left">
+          {/* Terminal */}
+          <div className="terminal-container">
+            <div className="terminal-header">
+              <span className="terminal-dot red"></span>
+              <span className="terminal-dot yellow"></span>
+              <span className="terminal-dot green"></span>
+              <span className="terminal-title">developer.sh</span>
             </div>
-
-            {/* Name + Role */}
-            <div className="hero-title-group">
-              <span className="hero-greeting">Hello, I'm</span>
-              <h1 className="hero-name">Ganagoni Bharath Goud</h1>
-              <h2 className="hero-role">Full Stack Developer &amp; UI/UX Innovator</h2>
-            </div>
-
-            <p className="hero-bio">
-              Passionate computer science engineer crafting scalable MERN applications,
-              Python systems, and high-fidelity user experiences. End-to-end engineering
-              with clean code and premium design.
-            </p>
-
-            <div className="hero-cta-group">
-              <button className="hero-primary-btn" onClick={scrollToAbout}>
-                Explore Journey <FaArrowDown className="btn-arrow" />
-              </button>
-              <div className="hero-social-quick">
-                <a href="https://www.linkedin.com/in/ganagoni-bharath-goud" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hero-social-link">
-                  <FaLinkedin />
-                </a>
-                <a href="https://github.com/bharathgoudganagoni" target="_blank" rel="noreferrer" aria-label="GitHub" className="hero-social-link">
-                  <FaGithub />
-                </a>
-                <a href="mailto:bharathgoudganagoni123@gmail.com" aria-label="Email" className="hero-social-link">
-                  <FaEnvelope />
-                </a>
+            <div className="terminal-body">
+              <div className="terminal-line">
+                <span className="terminal-prompt">ganagoni@bharath:~$</span>{" "}
+                <span className="terminal-command">node run-portfolio.js</span>
+              </div>
+              <div className="terminal-line terminal-output">
+                <span className="terminal-arrow">&gt;&gt;</span>{" "}
+                <span className="terminal-text">{text}</span>
+                <span className="terminal-cursor">█</span>
               </div>
             </div>
           </div>
 
-          {/* Right: Large profile — visible only in hero */}
-          <div className={`hero-content-right ${scrolled ? "hero-profile-hidden" : ""}`}>
-            <div className="hero-profile-frame">
-              <div className="hero-profile-glow" />
-              <div className="hero-profile-ring ring-1" />
-              <div className="hero-profile-ring ring-2" />
-              <div className="hero-profile-ring ring-3" />
+          {/* Name + Role */}
+          <div className="hero-title-group">
+            <span className="hero-greeting">Hello, I'm</span>
+            <h1 className="hero-name">Ganagoni Bharath Goud</h1>
+            <h2 className="hero-role">Full Stack Developer &amp; UI/UX Innovator</h2>
+          </div>
+
+          <p className="hero-bio">
+            Passionate computer science engineer crafting scalable MERN applications,
+            Python systems, and high-fidelity user experiences. End-to-end engineering
+            with clean code and premium design.
+          </p>
+
+          <div className="hero-cta-group">
+            <button className="hero-primary-btn" onClick={scrollToAbout}>
+              Explore Journey <FaArrowDown className="btn-arrow" />
+            </button>
+            <div className="hero-social-quick">
+              <a
+                href="https://www.linkedin.com/in/ganagoni-bharath-goud"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="hero-social-link"
+              >
+                <FaLinkedin />
+              </a>
+              <a
+                href="https://github.com/bharathgoudganagoni"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="hero-social-link"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href="mailto:bharathgoudganagoni123@gmail.com"
+                aria-label="Email"
+                className="hero-social-link"
+              >
+                <FaEnvelope />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Right: Ultra-Premium Developer Profile Showcase */}
+        <div className="hero-content-right">
+          <div className="hero-profile-showcase">
+            {/* Ambient Multi-Layer Backlight Glow */}
+            <div className="hps-ambient-glow" />
+
+            {/* Corner Tech HUD Brackets */}
+            <span className="hps-corner corner-tl" />
+            <span className="hps-corner corner-tr" />
+            <span className="hps-corner corner-bl" />
+            <span className="hps-corner corner-br" />
+
+            {/* Top HUD Status Bar */}
+            <div className="hps-hud-bar">
+              <div className="hps-hud-dots">
+                <span className="hps-dot red" />
+                <span className="hps-dot yellow" />
+                <span className="hps-dot green" />
+              </div>
+              <span className="hps-hud-title">sys.profile // bharath.dev</span>
+              <span className="hps-hud-status">
+                <span className="hps-pulse-green" /> ONLINE
+              </span>
+            </div>
+
+            {/* Main Portrait Frame with Image */}
+            <div className="hps-image-wrapper">
               <img
                 src={`${import.meta.env.BASE_URL}Bharath_profile.png`}
-                className="hero-profile-img"
                 alt="Ganagoni Bharath Goud"
+                className="hps-portrait-img"
               />
-              <div className="hero-profile-tag">
-                <span className="profile-tag-dot" />
-                <span>Available for Work</span>
+              <div className="hps-image-overlay" />
+              <div className="hps-image-shimmer" />
+            </div>
+
+            {/* Floating Tech Pill 1 (Top-Left) */}
+            <div className="hps-floating-pill pill-top-left">
+              <span className="pill-icon-glow">⚡</span>
+              <div className="pill-text-col">
+                <span className="pill-title">MERN Stack</span>
+                <span className="pill-subtitle">Full Stack Engineer</span>
+              </div>
+            </div>
+
+            {/* Floating Tech Pill 2 (Bottom-Right) */}
+            <div className="hps-floating-pill pill-bottom-right">
+              <span className="pill-icon-glow">🎨</span>
+              <div className="pill-text-col">
+                <span className="pill-title">UI/UX Design</span>
+                <span className="pill-subtitle">Figma &amp; Modern Web</span>
+              </div>
+            </div>
+
+            {/* Bottom Status & Quick Badges Bar */}
+            <div className="hps-bottom-bar">
+              <div className="hps-status-badge">
+                <span className="hps-beacon-dot" />
+                <span>Available for Opportunities</span>
+              </div>
+              <div className="hps-tech-tags">
+                <span className="hps-tag">React</span>
+                <span className="hps-tag">Node</span>
+                <span className="hps-tag">Python</span>
+                <span className="hps-tag">UI/UX</span>
               </div>
             </div>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 }

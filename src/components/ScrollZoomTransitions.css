@@ -1,0 +1,73 @@
+/* ==========================================================================
+   CINEMATIC 3D SCROLL ZOOM TRANSITIONS STYLES
+   Non-destructive overlay wrapper for section-by-section 3D transitions.
+   Sections retain their natural page flow — no pinning, no content locks.
+   ========================================================================== */
+
+/*
+ * The stage creates a CSS 3D perspective context.
+ * Perspective is set via the SCROLL_ZOOM_CONFIG inline style on the component,
+ * but we set it here too as a fallback.
+ */
+.scroll-zoom-stage {
+  position: relative;
+  width: 100%;
+  /* Perspective is applied via inline style from JS config — this is a fallback */
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/*
+ * Each section panel is a 3D-aware block in the natural document flow.
+ * min-height: 100vh ensures full-screen feel without restricting taller content.
+ * GSAP will animate transform: scale, translateZ, and opacity on these elements.
+ */
+.scroll-zoom-panel {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-origin: center center;
+  /* z-index stacking: later panels go behind initially */
+  z-index: 1;
+}
+
+/*
+ * Fallback for users preferring reduced motion.
+ * No transforms, no animations, natural readable layout.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-zoom-stage {
+    perspective: none !important;
+    transform-style: flat !important;
+  }
+
+  .scroll-zoom-panel {
+    will-change: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    min-height: auto !important;
+  }
+}
+
+/*
+ * Mobile optimization: Reduce 3D depth to improve readability on small screens.
+ * The JS config also uses reduced values for mobile.
+ */
+@media (max-width: 768px) {
+  .scroll-zoom-stage {
+    perspective: 800px !important;
+    -webkit-perspective: 800px !important;
+  }
+
+  .scroll-zoom-panel {
+    /* On mobile let the panel content breathe more */
+    min-height: auto;
+  }
+}

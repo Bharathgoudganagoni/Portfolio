@@ -12,6 +12,7 @@ import Contact from "./components/Contact";
 import RobotCharacter from "./components/RobotCharacter";
 import AiAssistant from "./components/AiAssistant";
 import Footer from "./components/Footer";
+import ScrollZoomTransitions from "./components/ScrollZoomTransitions";
 
 export default function App() {
   const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
@@ -33,12 +34,14 @@ export default function App() {
       {/* Main Portfolio Container */}
       <div className="portfolio-app-root">
         <main id="main-content">
-          <Hero />
-          <About />
-          <WorkExperience />
-          <Skills />
-          <Projects />
-          <Contact />
+          <ScrollZoomTransitions>
+            <Hero />
+            <About />
+            <WorkExperience />
+            <Skills />
+            <Projects />
+            <Contact />
+          </ScrollZoomTransitions>
         </main>
 
         {/* Interactive Animated Funny Robot Character */}
